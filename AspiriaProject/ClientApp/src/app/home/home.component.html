@@ -1,0 +1,67 @@
+<div class="container">
+  <br>
+  <button class="btn btn-primary" (click)="abrirModalAgregar()">
+    <mat-icon>note_add</mat-icon>
+    Agregar Producto
+   </button>
+    <mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="Id">
+          <mat-header-cell *matHeaderCellDef><b>Id</b> </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Nombre">
+          <mat-header-cell *matHeaderCellDef><b>Name</b> </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.nombre}}</mat-cell>
+        </ng-container>
+        <!-- <ng-container matColumnDef="Descripcion">
+          <mat-header-cell *matHeaderCellDef><b>Descripción</b> </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.descripcion}}</mat-cell>
+        </ng-container> -->
+        <ng-container matColumnDef="RestriccionEdad">
+          <mat-header-cell *matHeaderCellDef><b>Age</b> </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.restriccionEdad}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Compania">
+          <mat-header-cell *matHeaderCellDef><b>Company</b> </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.compania}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Precio">
+          <mat-header-cell *matHeaderCellDef><b>Price</b> </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.precio}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Acciones">
+          <mat-header-cell *matHeaderCellDef><b></b> </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-flat-button color="accent" class="m-2" (click)="abrirModalEditar(element.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-flat-button color="warn" (click)="abrirModalConfirmacion(element.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Headers -->
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let element; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>
+
+<ng-template #dialogAdvertencia>
+  <h2 matDialogTitle>¿Estás seguro de eliminar este registro?</h2>
+  <mat-dialog-content class="mat-typography">
+    <p>De ser así, el registro ya no se podrá recuperar.</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button type="button" class="btn-modal-secondary" (click)="cerrarModal()" fxFlex="0 0 auto" [autofocus]="false"
+      mat-stroked-button>
+      <i class="ms-Icon ms-Icon--ErrorBadge" aria-hidden="true"></i> No
+    </button>
+    <button type="button" (click)="confirmarEliminar()" mat-flat-button class="btn-modal-primary"
+      fxFlex="0 0 auto" [autofocus]="false">
+      <i aria-hidden="true"></i>Si
+    </button>
+  </mat-dialog-actions>
+</ng-template>

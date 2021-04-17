@@ -1,0 +1,91 @@
+<div>
+    <h2 mat-dialog-title>{{data.esNuevoRegistro ? 'Agregar Producto':'Editar Producto'}}
+        <div class="btn-group" style="float: right; margin-top: -5px;">
+            <button type="button" class="btn btn-secondary" fxFlex="0 0 auto" mat-stroked-button (click)="salir()"
+                style="left: -20px;">Cancelar</button>
+            <button class="btn btn-success" fxFlex="0 0 auto" mat-flat-button (click)="validarConfirmacion()">Guardar</button>
+        </div>
+    </h2>
+</div>
+<mat-dialog-content style="width: 800px;">
+    <div>
+        <form [formGroup]="registroProducto">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="">Nombre</label>
+                        <input type="text" class="form-control" formControlName="nombre">
+                    </div>
+                    <ng-container
+                        *ngIf="registroProducto.get('nombre').invalid && (registroProducto.get('nombre').dirty || registroProducto.get('nombre').touched)">
+                        <p *ngIf="registroProducto.get('nombre').errors.required" class="text-danger">
+                            * Campo requerido
+                        </p>
+                    </ng-container>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="">Descripcion</label>
+                        <input type="text" class="form-control" formControlName="descripcion">
+                    </div>
+                    <ng-container
+                        *ngIf="registroProducto.get('descripcion').invalid && (registroProducto.get('descripcion').dirty || registroProducto.get('descripcion').touched)">
+                        <p *ngIf="registroProducto.get('descripcion').errors.required" class="text-danger">
+                            * Campo requerido
+                        </p>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="row">   
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="">Restriccion de Edad</label>
+                        <input type="number" class="form-control" formControlName="restriccionEdad"
+                        min="0" pattern="^[0-9]+"
+                            oninput="this.value = Math.max(this.value, 0)">
+                    </div>
+                    <ng-container
+                        *ngIf="registroProducto.get('restriccionEdad').invalid && (registroProducto.get('restriccionEdad').dirty || registroProducto.get('restriccionEdad').touched)">
+                        <p *ngIf="registroProducto.get('restriccionEdad').errors.required" class="text-danger">
+                            * Campo requerido
+                        </p>
+                        <p *ngIf="registroProducto.get('restriccionEdad').errors.min || registroProducto.get('restriccionEdad').errors.max" class="text-danger">
+                            * El valor debe estar entre 0 y 1000
+                        </p>
+                    </ng-container>
+                </div>   
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="">Compañia</label>
+                        <input type="text" class="form-control" formControlName="compania">
+                    </div>
+                    <ng-container
+                        *ngIf="registroProducto.get('compania').invalid && (registroProducto.get('compania').dirty || registroProducto.get('compania').touched)">
+                        <p *ngIf="registroProducto.get('compania').errors.required" class="text-danger">
+                            * Campo requerido
+                        </p>
+                    </ng-container>
+                </div>   
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="">Precio</label>
+                        <input type="number" class="form-control" formControlName="precio"
+                        min="0" pattern="^[0-9]+"
+                            oninput="this.value = Math.max(this.value, 0)">
+                    </div>
+                    <ng-container
+                        *ngIf="registroProducto.get('precio').invalid && (registroProducto.get('precio').dirty || registroProducto.get('precio').touched)">
+                        <p *ngIf="registroProducto.get('precio').errors.required" class="text-danger">
+                            * Campo requerido
+                        </p>
+                        <p *ngIf="registroProducto.get('precio').errors.min || registroProducto.get('precio').errors.max" class="text-danger">
+                            * El valor debe estar entre 0 y 1000
+                        </p>
+                    </ng-container>
+                </div>
+            </div>
+        </form>
+    </div>
+</mat-dialog-content>
